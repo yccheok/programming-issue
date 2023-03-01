@@ -17,10 +17,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dxr-qP-Ahy">
-                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                                <rect key="frame" x="0.0" y="147" width="393" height="671"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k9m-qu-YL8" userLabel="Container">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="759"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="671"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="02G-S3-MYr">
                                                 <rect key="frame" x="0.0" y="0.0" width="393" height="44"/>
@@ -35,7 +35,7 @@
                                                 </connections>
                                             </button>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="OYu-Wf-RH1">
-                                                <rect key="frame" x="0.0" y="44" width="393" height="715"/>
+                                                <rect key="frame" x="0.0" y="44" width="393" height="627"/>
                                                 <color key="backgroundColor" systemColor="systemGray4Color"/>
                                                 <color key="textColor" systemColor="labelColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
@@ -72,10 +72,11 @@
                             <constraint firstItem="dxr-qP-Ahy" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="4BR-PV-2yn"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dxr-qP-Ahy" secondAttribute="trailing" id="Skz-FM-Cjt"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="dxr-qP-Ahy" secondAttribute="bottom" id="cqJ-oC-J2M"/>
-                            <constraint firstItem="dxr-qP-Ahy" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="h5a-kx-Dnv"/>
+                            <constraint firstItem="dxr-qP-Ahy" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="88" id="h5a-kx-Dnv"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="scrollView" destination="dxr-qP-Ahy" id="k3J-oB-CO0"/>
                         <outlet property="textView" destination="OYu-Wf-RH1" id="ERx-zn-ahu"/>
                     </connections>
                 </viewController>

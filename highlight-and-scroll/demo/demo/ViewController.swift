@@ -8,7 +8,8 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    @IBOutlet weak var scrollView: UIScrollView!
+    
     @IBOutlet weak var textView: UITextView!
     
     private func initTextView() {
@@ -22,13 +23,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func click(_ sender: Any) {
-        let attributedText = textView.attributedText!
-        
-        let attributedString: NSMutableAttributedString = NSMutableAttributedString(attributedString: attributedText)
-        
-        let range = NSRange(location: 0, length: attributedString.length)
-        
-        attributedString.removeAttribute(NSAttributedString.Key.backgroundColor, range: range)
+
         
         let searchedString = "Can you highlight and scroll?"
         
@@ -38,21 +33,51 @@ class ViewController: UIViewController {
                 options: .caseInsensitive
             )
             
-            let targetedString = attributedString.string
+            let targetedString = textView.text!
+            
+            let range = NSRange(location: 0, length: targetedString.count)
             
             for match in regex.matches(in: targetedString, options: .withTransparentBounds, range: range) {
                 print(">>>> found the 1st match")
-                attributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor.yellow, range: match.range)
+                highlightAndScroll(match.range)
+
                 break
             }
         } catch {
             print("\(error)")
         }
+    }
+    
+    private func highlightAndScroll(_ range: NSRange) {
+        let attributedText = textView.attributedText!
+        
+        let attributedString: NSMutableAttributedString = NSMutableAttributedString(attributedString: attributedText)
+        
+        attributedString.removeAttribute(NSAttributedString.Key.backgroundColor, range: range)
+        
+        attributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor.yellow, range: range)
         
         textView.attributedText = attributedString
         
-        // TODO: How can we perform scrolling to make the highlight text visible?
+        // https://stackoverflow.com/questions/14376341/finding-x-y-coordinate-of-specified-word-in-uitextview
+        let beginning: UITextPosition? = textView.beginningOfDocument
+        let start: UITextPosition? = textView.position(from: beginning!, offset: range.location)
+        let end: UITextPosition? = textView.position(from: start!, offset: range.length)
+        let textRange: UITextRange? = textView.textRange(from: start!, to: end!)
+        let textRect: CGRect = textView.firstRect(for: textRange!)
+        
+        var scrollViewBounds = scrollView.bounds
+        // Use *2, so that the highlighted text will not too close to screen edge.
+        let scrollToRect = CGRect(
+            x: scrollViewBounds.minX,
+            y: textRect.minY + textView.frame.minY,
+            width: scrollViewBounds.width,
+            height: textRect.height * 2
+        )
+        
+        print(">>>> scrollToRect \(scrollToRect)")
+        
+        scrollView.scrollRectToVisible(scrollToRect, animated: true)
     }
-    
 }
 
